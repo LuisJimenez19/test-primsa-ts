@@ -1,0 +1,85 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0c0c0c;
+  color: #fff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  min-height: 100dvh;
+}
+
+h1 {
+  width: 90%;
+  max-width: 80rem;
+  font-size: calc(2vmin + 1.5rem);
+  margin: 1.2em auto 0;
+  text-align: center;
+  text-wrap: pretty;
+}
+
+h2 {
+  font-size: calc(2vmin + 1rem);
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #656565;
+}
+
+p {
+  font-size: 1.2rem;
+  text-align: center;
+  text-wrap: pretty;
+}
+
+main {
+  width: 90%;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.btn-getUsers {
+  margin: 10px auto;
+  cursor: pointer;
+  display: block;
+  padding: 10px 20px;
+  border: #0c0c0c;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  box-shadow: 10px 0px 20px #ccc;
+  transition: all 0.3s;
+  &:hover {
+    box-shadow: 1px 2px -20px #9f9f9f;
+    transform: scale(1.1);
+  }
+}
+
+.section-result {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  padding: 0.8rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  max-width: 320px;
+  background: #333;
+  h2 {
+    margin: 0;
+    text-align: left;
+  }
+}
