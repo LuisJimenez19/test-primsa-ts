@@ -24,7 +24,6 @@ export const createUser = async ({ name }: { name: string }) => {
       }
     })
     return userCreated
-
   } catch (error: any) {
     console.log(error)
     throw new Error(error)

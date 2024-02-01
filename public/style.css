@@ -46,7 +46,7 @@ main {
   margin: 0 auto;
 }
 
-.btn-getUsers {
+button {
   margin: 10px auto;
   cursor: pointer;
   display: block;
@@ -67,7 +67,6 @@ main {
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
 }
 
 .card {
@@ -81,5 +80,37 @@ main {
   h2 {
     margin: 0;
     text-align: left;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  margin: 1rem auto;
+  background-color: #656565;
+  max-width: 280px;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 30px #333;
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    input {
+      padding: 0.5rem;
+      outline: none;
+      border: none;
+      border-radius: 0.3rem;
+      background: #00000052;
+    }
+  }
+
+  button {
+    margin: 0;
   }
 }

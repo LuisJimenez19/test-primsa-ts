@@ -1,7 +1,10 @@
+import { PrismaClientUnknownRequestError } from '@prisma/client/runtime/library'
 import prisma from '../db'
 import { Router } from 'express'
-
 const routesPost = Router()
+
+import { validateBody } from '../middleware/validate.middleware'
+import { createPostSchema } from '../schemas/post.schema'
 
 /* Get all posts */
 routesPost.get('/', async (_, res) => {
@@ -30,12 +33,19 @@ routesPost.get('/', async (_, res) => {
 
 /* Create a post */
 
-routesPost.post('/', async (req, res) => {
+routesPost.post('/', validateBody(createPostSchema), async (req, res) => {
   const { title, content, authorId } = req.body
   const authorIdParsed = parseInt(authorId)
+
   try {
+    /*  const verifyData = postSchema.parse({
+      title,
+      content,
+      authorId: authorIdParsed
+    })
+    console.log(verifyData) */
     /* Validations */
-    if (
+    /*  if (
       typeof title !== 'string' ||
       typeof content !== 'string' ||
       !Number.isInteger(authorIdParsed)
@@ -48,7 +58,9 @@ routesPost.post('/', async (req, res) => {
           authorIdParsed
         }
       })
-    }
+    } */
+
+    // if(!postSchema.parse({title, content, authorIdParsed})){}
 
     const postCreated = await prisma.post.create({
       data: {
@@ -62,9 +74,22 @@ routesPost.post('/', async (req, res) => {
       msg: 'Post create successfully',
       data: postCreated
     })
+    // TODO: Ver como quitar el tipo any del error.
   } catch (error: any) {
     console.log(error)
-    if (error.code === 'P2003') {
+    /* De esta forma typeScript infiere y nos da autocompletado. */
+    if (error instanceof PrismaClientUnknownRequestError) {
+      console.log(error.message)
+      return res.status(400).json({
+        msg: 'User not exists',
+        data: {
+          title,
+          content,
+          authorId: authorIdParsed
+        }
+      })
+    }
+    if (error?.code === 'P2003') {
       return res.status(400).json({
         msg: 'User not exists',
         authorIdParsed

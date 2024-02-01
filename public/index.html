@@ -19,8 +19,19 @@
       It is a simple application in order to practice typescript, prism and
       configure a templating engine to make ssr with nodejs express
     </p>
+
     <main>
+      <!-- Form to create users -->
+      <form id="form-createUser" >
+        <label
+          >Name
+          <input type="text" id="name" name="name" placeholder="John Doe" />
+        </label>
+        <button id="btn-createUser">Submit</button>
+      </form>
+
       <button class="btn-getUsers">Get all Users with their posts</button>
+
       <section class="section-result"></section>
     </main>
     <script src="main.js"></script>

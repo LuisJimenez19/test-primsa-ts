@@ -1,5 +1,8 @@
 import { Router } from 'express'
 import { createUser, getUsers } from '../services/users'
+import { createUserSchema } from '../schemas/user.schema'
+import { ZodError } from 'zod'
+import { validateBody } from '../middleware/validate.middleware'
 
 const routesUser = Router()
 
@@ -28,17 +31,10 @@ routesUser.get('/', async (_req, res) => {
 })
 
 /* Create users */
-routesUser.post('/', async (req, res) => {
-  const { name } = req.body
-
-  if (typeof name !== 'string') {
-    return res.status(400).json({
-      msg: 'Name is missing or it must be a string '
-    })
-  }
-
+routesUser.post('/', validateBody(createUserSchema), async (req, res) => {
   try {
-    const userCreated = await createUser({ name })
+    const data = req.body
+    const userCreated = await createUser({ name: data.name })
 
     if (userCreated) {
       return res.status(200).json({
@@ -50,13 +46,21 @@ routesUser.post('/', async (req, res) => {
     return res.status(400).json({
       msg: 'Could not create user'
     })
-  } catch (error: any) {
-    console.log(error.code)
-    res.status(500).json({
+  } catch (error) {
+    console.log(error)
+    if (error instanceof ZodError) {
+      const issues = error.issues
+      const responseError = {
+        msg: issues[0].message
+      }
+      console.log(responseError)
+      return res.status(400).json(responseError)
+    }
+
+    return res.status(500).json({
       msg: 'Error server'
     })
   }
-  return
 })
 
 export { routesUser }

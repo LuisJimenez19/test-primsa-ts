@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Modelos que representan la tabla y sus relaciones.
 model User {
   id       Int      @id @default(autoincrement())
   name     String
